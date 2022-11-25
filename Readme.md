@@ -28,3 +28,7 @@
 
 ### Environment variable 
 - GF_<SectionName>_<KeyName>
+
+-----------------------------------------------
+- MQTT
+- InfluxDB vs OpenTSDB
