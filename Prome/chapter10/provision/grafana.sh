@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-source /vagrant/utils/version.sh
+source /vagrant/utils/defaults.sh
 source /vagrant/utils/helpers.sh
 
 check_requirements curl rsync
