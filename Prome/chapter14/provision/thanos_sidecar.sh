@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-source /vagrant/utils/defaults.sh
+source /vagrant/utils/version.sh
 source /vagrant/utils/helpers.sh
 
 check_requirements curl tar
@@ -21,4 +21,3 @@ install -m 0640 -o prometheus -g prometheus -D /vagrant/chapter14/configs/thanos
 systemctl daemon-reload
 systemctl enable thanos-sidecar
 systemctl start thanos-sidecar
-

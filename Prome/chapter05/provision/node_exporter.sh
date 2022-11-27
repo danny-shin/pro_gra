@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-source /vagrant/utils/defaults.sh
+source /vagrant/utils/version.sh
 source /vagrant/utils/helpers.sh
 
 check_requirements curl tar
@@ -23,4 +23,3 @@ install -m 0644 /vagrant/chapter05/configs/node_exporter/node-exporter.service /
 systemctl daemon-reload
 systemctl enable node-exporter
 systemctl start node-exporter
-
