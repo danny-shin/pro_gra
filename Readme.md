@@ -3,9 +3,9 @@
 - git clone https://github.com/PacktPublishing/Hands-On-Infrastructure-Monitoring-with-Prometheus.git
 
 - vagrant status
-- vagrant destroy
 - vagrant status NAME
-
+- vagrant destroy
+- vagrant destroy -f
 
 
 ---------------------------------------------------------
