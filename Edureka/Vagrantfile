@@ -1,0 +1,56 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+require './utils/vagrant_defaults'
+
+instances = ['prometheus', 'grafana', 'alertmanager']
+
+Vagrant.configure(2) do |config|
+  config.vm.synced_folder "..", "/vagrant"
+  
+	## instances.each_with_index.map do |item, index|
+	# instances = ['prometheus', 'grafana', 'alertmanager']
+	config.vm.define "prometheus" do |node1|
+		node1.vm.box = BOX
+		node1.vm.provider "virtualbox" do |vbox|
+			vbox.gui    = GUI
+			vbox.memory = RAM;
+			vbox.name = "prometheus"
+		end
+		node1.vm.hostname = "prometheus" + DOMAIN
+		node1.vm.network 'private_network', ip: NETWORK + "51", netmask: NETMASK
+		node1.vm.provision "shell", path: "shells/hosts.sh", args: [NETWORK, DOMAIN, 10]
+		node1.vm.provision "shell", path: "shells/prometheus.sh"
+		node1.vm.provision "shell", path: "shells/node_exporter.sh"
+	end
+
+# 	# instances = ['prometheus', 'grafana', 'alertmanager']
+# 	config.vm.define "grafana" do |node2|
+# 		node2.vm.box = BOX
+# 		node2.vm.provider "virtualbox" do |vbox|
+# 			vbox.gui    = GUI
+# 			vbox.memory = RAM;
+# 			vbox.name = "grafana"
+# 		end
+# 		node2.vm.hostname = "grafana" + DOMAIN
+# 		node2.vm.network 'private_network', ip: NETWORK + "52", netmask: NETMASK
+# 		node2.vm.provision "shell", path: "shells/hosts.sh", args: [NETWORK, DOMAIN, 10]
+# 		node2.vm.provision "shell", path: "shells/grafana.sh"
+# 		node2.vm.provision "shell", path: "shells/node_exporter.sh"
+# 	end
+# 
+# 	# instances = ['prometheus', 'grafana', 'alertmanager']
+# 	config.vm.define "alertmanager" do |node3|
+# 		node3.vm.box = BOX
+# 		node3.vm.provider "virtualbox" do |vbox|
+# 			vbox.gui    = GUI
+# 			vbox.memory = RAM;
+# 			vbox.name = "alertmanager"
+# 		end
+# 		node3.vm.hostname = "alertmanager" + DOMAIN
+# 		node3.vm.network 'private_network', ip: NETWORK + "53", netmask: NETMASK
+# 		node3.vm.provision "shell", path: "shells/hosts.sh", args: [NETWORK, DOMAIN, 10]
+# 		node3.vm.provision "shell", path: "shells/alertmanager.sh"
+# 		node3.vm.provision "shell", path: "shells/node_exporter.sh"
+# 	end
+	## end
+end 
