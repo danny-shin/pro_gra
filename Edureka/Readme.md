@@ -12,30 +12,21 @@
 ### [05:50] 04.Prometheus Architecture
 - ![architecture](Edureka_img/04.01.architecture.png)
 - Push Gatewate
-- Retrival
-  - Pulls Metric Data
-  - Data Retrieval Worker
-- Storage
-  - Stores Metric Data
-  - Time Series Database
-- HTTP Server
-  - Accepts Queries
-  - Accepts PromQL Queries
+- Retrival: Pulls Metric Data, Data Retrieval Worker
+- Storage: Stores Metric Data, Time Series Database
+- HTTP Server: Accepts Queries, Accepts PromQL Queries
 - Prometheus Web GUI
 - Alet Manager
 
 ### [08:59] 05.Prometheus Metrics & Types
-- Counters: 
-  - Record a value that only goes up
+- Counters: Record a value that only goes up
   - Query how fast the value is increasing. 
-- Gauges: 
-  - Record a value that only goes up and down
+- Gauges: Record a value that only goes up and down
   - You do not have to Query its rate
-- Histogram
-  - Take many measurements of a value, to later calculate averages or percentiles
+- Histogram: Take many measurements of a value, to later calculate averages or percentiles
   - You know what the range of values will be up front, so you can define your own
-- Summary: 
-  - Take many measurements of a value, to later calculate averages or percentiles
+- Summary: Take many measurements of a value, to later calculate averages or percentiles
   - You don't know what the range of values will be up front, so you cannot use histograms
 ### [11:40] 06.Installation
--
+- https://prometheus.io/download/
+- wget https://github.com/prometheus/prometheus/releases/download/v2.40.3/prometheus-2.40.3.darwin-amd64.tar.gz
