@@ -2,10 +2,23 @@
 ## HANDS-ON INFRASTRUCTURE MONITORING WITH PROMETHEUS - Packt 2019
 - git clone https://github.com/PacktPublishing/Hands-On-Infrastructure-Monitoring-with-Prometheus.git
 
+## Ch.03 
 - vagrant status
 - vagrant status NAME
 - vagrant destroy
 - vagrant destroy -f
+- vagrant up --no-provision
+
+- vagrant ssh prometheus 
+- sudo -i 
+
+- Prometheus: http://192.168.56.51:9090/targets
+- Grafana: http://192.168.56.52:3000
+  - admin / 123456
+- Alertmanater: http://192.168.56.53:9093
+
+### [node-exporter](https://prometheus.io/docs/guides/node-exporter/)
+
 
 
 ---------------------------------------------------------
