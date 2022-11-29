@@ -21,6 +21,7 @@ services:
     #   - MYSQL_ROOT_PASSWORD=1234
     #   - MYSQL_DATABASE=gpsv3_system
     volumes: 
+    # dup with COPY in ./docker/prometheus.dockerfile 
       - ./configs/prometheus:/etc/prometheus
       - ./docker/logs:/var/log/prometheus
 # - data /var/lib/grafana
@@ -40,3 +41,8 @@ services:
     ports: 
       - 8082:9100
     container_name: node_ex2
+  mysql8: 
+    image: prom/mysqld-exporter
+    environment:
+    # - DATA_SOURCE_NAME='login:password@(192.168.0.15:3306)/'
+      - DATA_SOURCE_NAME='login:password@(192.168.56.1:3306)/'

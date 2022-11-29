@@ -107,11 +107,59 @@ cd node_exporter-*.*
 ./node_exporter --web.listen-address 127.0.0.1:8082
 
 
-### [prom/node-exporter](https://hub.docker.com/r/prom/node-exporter)
-Windows docker Cannot start service Ports are not available: exposing port TCP
-ERROR: for node_export  Cannot start service node_export: Ports are not available: exposing port TCP 0.0.0.0:9100 -> 0.0.0.0:0: listen tcp 0.0.0.0:9100: b
-sudo lsof -i -P | grep LISTEN | grep :5432
-- remove all instances of apps on IIS. Restart IIS by 'iisreset' This worked
+- [prom/node-exporter](https://hub.docker.com/r/prom/node-exporter)
 
+- Windows docker Cannot start service Ports are not available: exposing port TCP
+- ERROR: for node_export  Cannot start service node_export: Ports are not available: exposing port TCP 0.0.0.0:9100 -> 0.0.0.0:0: listen tcp 0.0.0.0:9100: b
 - net stop winnat
 - net start winnat
+- Prometheus http://localhost:9090/
+- Node-Exporter http://localhost:8080/metrics
+
+### [Configure Prometheus to monitor the sample targets](https://prometheus.io/docs/prometheus/latest/getting_started/#configure-prometheus-to-monitor-the-sample-targets)
+- prometheus.yml
+```
+scrape_configs:
+  - job_name:       'node'
+
+    # Override the global default and scrape targets from this job every 5 seconds.
+    scrape_interval: 5s
+
+    static_configs:
+      - targets: ['localhost:8080', 'localhost:8081']
+        labels:
+          group: 'production'
+
+      - targets: ['localhost:8082']
+        labels:
+          group: 'canary'
+```
+### [Configure rules for aggregating scraped data into new time series](https://prometheus.io/docs/prometheus/latest/getting_started/#configure-rules-for-aggregating-scraped-data-into-new-time-series)
+- avg by (job, instance, mode) (rate(node_cpu_seconds_total[5m]))
+- prometheus.rules.yml:
+```
+groups:
+- name: cpu-node
+  rules:
+  - record: job_instance_mode:node_cpu_seconds:avg_rate5m
+    expr: avg by (job, instance, mode) (rate(node_cpu_seconds_total[5m]))
+```		
+- job_instance_mode:node_cpu_seconds:avg_rate5m
+
+### prometheus Get /metrics: dial tcp connect: connection refused
+You need to access them through the host private IP or by replacing localhost with host.docker.internal.
+
+### [mysqld_exporter](https://github.com/prometheus/mysqld_exporter)
+```
+CREATE USER 'exporter'@'localhost' IDENTIFIED BY 'XXXXXXXX' WITH MAX_USER_CONNECTIONS 3;
+GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'exporter'@'localhost';
+```
+### [prom/mysqld-exporter](https://registry.hub.docker.com/r/prom/mysqld-exporter/)
+```
+CREATE USER 'exporter'@'localhost' IDENTIFIED BY 'XXXXXXXX';
+GRANT PROCESS, REPLICATION CLIENT ON *.* TO 'exporter'@'localhost';
+GRANT SELECT ON performance_schema.* TO 'exporter'@'localhost';
+```
+export DATA_SOURCE_NAME='login:password@(hostname:port)/'
+./mysqld_exporter <flags>
+@@@@@ FROM HERE
