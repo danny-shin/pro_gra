@@ -15,7 +15,7 @@ fi
 DEBIAN_FRONTEND=noninteractive apt-get install -y libfontconfig
 dpkg -i "${CACHE_PATH}/${ARCHIVE}"
 
-rsync -ru /vagrant/ch03/configs/grafana/{dashboards,provisioning} /etc/grafana/
+rsync -ru /vagrant/configs/grafana/{dashboards,provisioning} /etc/grafana/
 
 systemctl daemon-reload
 systemctl enable grafana-server

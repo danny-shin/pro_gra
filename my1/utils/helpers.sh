@@ -38,6 +38,7 @@ check_cache_bin() {
 
 get_archive() {
   if cd "${CACHE_PATH}" && curl -sLO "$1" > /dev/null 2>&1 ; then
+	# if cd "${CACHE_PATH}" && wget "$1" > /dev/null 2>&1 ; then
     return 0
   else
     err "\"$1\" failed to download"

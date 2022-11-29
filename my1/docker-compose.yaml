@@ -1,0 +1,42 @@
+version: '3.7'
+
+services: 
+  prometheus:
+    # image: prom/prometheus
+    # build from dockerfile
+    build: 
+      # specify root folder
+      context: .
+      dockerfile: ./docker/prometheus.dockerfile
+    image: prome1
+    # image: prome1:2022-11
+    container_name: prometheus
+    # command: --default-authentication-plugin=mysql_native_password
+    # restart: always
+    ports: 
+      - '9090:9090'
+    #  - '9900:9090'
+    # environment: 
+    #   - MYSQL_USERNAME=root
+    #   - MYSQL_ROOT_PASSWORD=1234
+    #   - MYSQL_DATABASE=gpsv3_system
+    volumes: 
+      - ./configs/prometheus:/etc/prometheus
+      - ./docker/logs:/var/log/prometheus
+# - data /var/lib/grafana
+# - logs /var/log/grafana
+  node_ex0: 
+    image: prom/node-exporter
+    ports: 
+      - 8080:9100
+    container_name: node_ex0
+  node_ex1: 
+    image: prom/node-exporter
+    ports: 
+      - 8081:9100
+    container_name: node_ex1
+  node_ex2: 
+    image: prom/node-exporter
+    ports: 
+      - 8082:9100
+    container_name: node_ex2
