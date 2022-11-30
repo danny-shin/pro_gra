@@ -44,5 +44,14 @@ services:
   mysql8: 
     image: prom/mysqld-exporter
     environment:
-    # - DATA_SOURCE_NAME='login:password@(192.168.0.15:3306)/'
-      - DATA_SOURCE_NAME='login:password@(192.168.56.1:3306)/'
+      - DATA_SOURCE_NAME=exporter:12345_Abc@(host.docker.internal:3306)/
+    #  - DATA_SOURCE_NAME='exporter:12345_Abc@(192.168.0.15:3306)/'
+    ports:
+      - 9104:9104
+    container_name: mysql_con
+
+  grafana: 
+    image: grafana/grafana
+    ports:
+      - 3000:3000
+    container_name: grafana_con

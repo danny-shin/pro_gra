@@ -33,3 +33,11 @@ scrape_configs:
           - 'host.docker.internal:8082'
         labels: 
           group: 'node-group2'
+  - job_name: 'mysql'
+    scrape_interval: 5s
+    static_configs:
+      - targets:
+          # All mysql hostnames to monitor.
+          # - server1:3306
+          # - server2:3306
+          - 'host.docker.internal:9104'
