@@ -8,4 +8,4 @@ services:
     #  - DATA_SOURCE_NAME='exporter:12345_Abc@(192.168.0.15:3306)/'
     ports:
       - 9104:9104
-    container_name: mysql_con    
+    container_name: mysql_exporter  

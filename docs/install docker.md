@@ -19,8 +19,13 @@ echo \
 ### 4. Install Docker Engine
 - sudo apt-get update
 	- sudo chmod a+r /etc/apt/keyrings/docker.gpg (if error)
-- sudo apt-get -y install docker-ce docker-ce-cli containerd.io
-- sudo apt-get install -y docker-compose docker-compose-plugin
+- sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+- XXX sudo apt-get install -y docker-compose 
+
+mkdir -p ~/.docker/cli-plugins/
+curl -SL https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
+
+chmod +x ~/.docker/cli-plugins/docker-compose
 
 ### Executing the Docker Command Without Sudo (Optional)	
 - sudo usermod -aG docker ${USER}
@@ -45,3 +50,12 @@ echo \
 5. Reboot if still got error
 	- reboot
 	- sudo groupadd docker
+
+
+
+
+## https://github.com/docker/compose/
+- mkdir -p ~/.docker/cli-plugins/
+- curl -SL https://github.com/docker/compose/releases/download/v2.13.0/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
+- chmod +x ~/.docker/cli-plugins/docker-compose
+- docker compose version
